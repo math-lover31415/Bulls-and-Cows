@@ -1,4 +1,4 @@
-import random
+from random import sample
 def receive_input():
     x = str()
     c=False
@@ -23,25 +23,11 @@ def receive_input():
             pass
     return x
 def random_key():
-    c=False
-    while c==False:
-        x=random.randint(122,9877)
-        c=True
-        if len(str(x))!=4:
-            c=False
-        else:
-            pass
-        for i in str(x):
-            if str(x).count(i)!=1:
-                c=False
-                break
-            else:
-                pass
-    if len(str(x))==3:
-           x='0'+str(x)
-    else:
-        x=str(x)
-    return x
+    l=sample(range(10),4)
+    s=str()
+    for num in l:
+        s+=str(num)
+    return s
 def position(guess, key):
     n=0
     for i in range(4):
