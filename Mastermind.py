@@ -44,13 +44,13 @@ def cows(guess, key):
         else:
             pass
     #count=bulls+cows
-    cows=count-bulls(guess, key)
-    return cows
+    cow=count-bulls(guess, key)
+    return cow
 
 def game(): #The main code for the game
     key=random_key() #generate a random key
     table=list() #create a list to store our previous guesses
-    for n in range(1.13): #the players get 12 turns
+    for n in range(1,13): #the players get 12 turns
         guess=receive_input()
         if guess==key:
             print('You guessed right :)')
@@ -59,12 +59,12 @@ def game(): #The main code for the game
             break
         else:
             pass
-        print("The number of Bulls: ", bulls(x,key))
-        print("The number of Cows: ", cows(x,key))
+        print("The number of Bulls: ", bulls(guess,key))
+        print("The number of Cows: ", cows(guess,key))
         print('Your previous guesses (Guess, Bulls, Cows) were:')
-        table.append((x,bulls(x,key),cows(x,key))) #add values to table
+        table.append((guess, bulls(guess,key) , cows(guess,key))) #add values to table
         for line in table:
-            print(line[0],line[1],line[2], sep=',')
+            print(line[0],line[1],line[2], sep=', ')
     if guess!=key:
         print("You lose :(")
         print("The key is", key)
