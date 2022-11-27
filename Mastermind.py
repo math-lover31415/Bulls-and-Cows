@@ -1,83 +1,87 @@
-from random import sample
+from random import sample #module for generating key
+
 def receive_input():
-    x = str()
-    c=False
-    while c==False:
-        x = str(input("Enter 4 digit number: "))
-        c=True
-        if len(x)!=4:
-            c=False
-        elif x.isdigit()==False:
-            c=False
+    while True: #loop that will keep asking for input until it is valid.
+        inp = str(input("Enter 4 digit number: "))
+        if len(inp)!=4: #imput must be 4 characters long
+            print("Please enter a valid number")
+            continue
+        elif not inp.isdigit(): #input must be a number
+            print("Please enter a valid number")
+            continue
         else:
             pass
-        for i in x:
-            if x.count(i)!=1:
-                c=False
-                break
-            else:
-                pass
-        if c==False:
-            print("Enter valid number")
+        try:
+            for i in inp: #To see that no digit is repeated
+                assert inp.count(i)==1
+        except AssertionError:
+            print("Please enter a valid number")
+            continue
+        break
+    return inp
+
+def random_key(): #generates a random key as string
+    rand_list=sample(range(10),4) #use random mosule to get 4 random non repeating single digit int values
+    key=str()
+    for num in rand_list: #make a 4 digit numbers with string addition of the 4 one digit numbers
+        key+=str(num)
+    return key
+
+def bulls(guess, key): #count number of bulls and return as integer
+    count=0
+    for item1,item2 in zip(guess,key):#compare elements in guess and keys at the same index
+        if item1==item2:
+            count+=1
         else:
             pass
-    return x
-def random_key():
-    l=sample(range(10),4)
-    s=str()
-    for num in l:
-        s+=str(num)
-    return s
-def position(guess, key):
-    n=0
-    for i in range(4):
-        if guess[i]==key[i]:
-            n+=1
+    return count
+
+def cows(guess, key):
+    count=0
+    for index in range(4): #loop to count how many numbers are common in guess and keys
+        if guess[index] in key:
+            count+=1
         else:
             pass
-    return str(n)
-def exist(guess, key):
-    n=0
-    for i in range(4):
-        if guess[i] in key:
-            n+=1
-        else:
-            pass
-    n=n-int(position(guess, key))
-    return str(n)
-def game():
-    key=random_key()
-    table=list()
-    for i in range(12):
-        x=receive_input()
-        if x==key:
+    #count=bulls+cows
+    cows=count-bulls(guess, key)
+    return cows
+
+def game(): #The main code for the game
+    key=random_key() #generate a random key
+    table=list() #create a list to store our previous guesses
+    for n in range(1.13): #the players get 12 turns
+        guess=receive_input()
+        if guess==key:
             print('You guessed right :)')
             print('The key is', key)
-            print("It took you", i+1, 'guesses')
+            print("It took you", n, 'guesses')
             break
         else:
             pass
-        print("The number of Bulls: ", position(x,key))
-        print("The number of Cows: ", exist(x,key))
+        print("The number of Bulls: ", bulls(x,key))
+        print("The number of Cows: ", cows(x,key))
         print('Your previous guesses (Guess, Bulls, Cows) were:')
-        table.append((x,position(x,key),exist(x,key)))
+        table.append((x,bulls(x,key),cows(x,key))) #add values to table
         for line in table:
-            print(line[0],line[1],line[2])
-    if x!=key:
+            print(line[0],line[1],line[2], sep=',')
+    if guess!=key:
         print("You lose :(")
         print("The key is", key)
         print("Try better next time.")
     print("Thank you for playing")
-def game_loop():
+
+def game_loop(): #A loop that will allow the players to play multiple times.
     while True:
         game()
         print("Play another game? Press y for Yes, and n for No.")
         x=input().strip()
-        while x not in 'yn':
+        while x not in 'yn': #to enure the input is either 'y' or 'n'
             print("Please enter either y or n")
             x=input().strip()
         if x=='y':
             continue
         else:
            break 
+
 game_loop()
