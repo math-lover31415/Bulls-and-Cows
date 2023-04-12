@@ -9,3 +9,5 @@ The rules of the game are as follows:
   <li>A number in the players guess that is in the key but not in the same position as it is in the guess is called a "Cow"
   <li>After each guess, the player is told how many Bulls and Cows their key contains. The player must use these clues to make further guesses.
 </ul>
+
+The minimax file tries to predict the optimal output using <a href="http://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf">Donald Knuth's algorithm</a>.
