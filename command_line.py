@@ -27,25 +27,16 @@ def random_key(): #generates a random key as string
         key+=str(num)
     return key
 
-def bulls(guess, key): #count number of bulls and return as integer
-    count=0
-    for item1,item2 in zip(guess,key):#compare elements in guess and keys at the same index
+def bulls_and_cows(guess, key): #count number of bulls and return as integer
+    bull_num=0
+    cow_num=len(set(guess).intersection(set(key)))
+    for item1,item2 in zip(guess,key):
         if item1==item2:
-            count+=1
+            bull_num+=1
         else:
             pass
-    return count
-
-def cows(guess, key):
-    count=0
-    for index in range(4): #loop to count how many numbers are common in guess and keys
-        if guess[index] in key:
-            count+=1
-        else:
-            pass
-    #count=bulls+cows
-    cow=count-bulls(guess, key)
-    return cow
+    cow_num-=bull_num
+    return (bull_num,cow_num)
 
 def game(): #The main code for the game
     key=random_key() #generate a random key
@@ -59,10 +50,11 @@ def game(): #The main code for the game
             break
         else:
             pass
-        print("The number of Bulls: ", bulls(guess,key))
-        print("The number of Cows: ", cows(guess,key))
+        bull_num,cow_num=bulls_and_cows(guess,key)
+        print("The number of Bulls: ", bull_num)
+        print("The number of Cows: ", cow_num)
         print('Your previous guesses (Guess, Bulls, Cows) were:')
-        table.append((guess, bulls(guess,key) , cows(guess,key))) #add values to table
+        table.append((guess, bull_num, cow_num)) #add values to table
         for line in table:
             print(line[0],line[1],line[2], sep=', ')
     if guess!=key:

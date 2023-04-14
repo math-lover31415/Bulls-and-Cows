@@ -24,25 +24,16 @@ def check_number(inp):
             return False
     return True
 
-def bulls(guess, key): #count number of bulls and return as integer
-    count=0
-    for item1,item2 in zip(guess,key):#compare elements in guess and keys at the same index
+def find_values(guess, key): #count number of bulls and return as integer
+    bull_num=0
+    cow_num=len(set(guess).intersection(set(key)))
+    for item1,item2 in zip(guess,key):
         if item1==item2:
-            count+=1
+            bull_num+=1
         else:
             pass
-    return count
-
-def cows(guess, key):
-    count=0
-    for index in range(4): #loop to count how many numbers are common in guess and keys
-        if guess[index] in key:
-            count+=1
-        else:
-            pass
-    #count=bulls+cows
-    cow=count-bulls(guess, key)
-    return cow
+    cow_num-=bull_num
+    return (guess,bull_num,cow_num)
     
 def f():
     global n, correct_guess_flag
@@ -51,7 +42,7 @@ def f():
     number=entry.get().strip()
     if n<12:
         if check_number(number):
-            values=(number, bulls(number,rand), cows(number,rand))
+            values=find_values(number, rand)
             n+=1
             for i in range(3):
                 tk.Label(window, text=str(values[i])).grid(row=n+2,column=i)
