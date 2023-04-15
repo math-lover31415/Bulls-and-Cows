@@ -1,28 +1,20 @@
 import itertools
 from random import choice
 
-def bulls(guess, key): #count number of bulls and return as integer
-    count=0
-    for item1,item2 in zip(guess,key):#compare elements in guess and keys at the same index
+def bulls_and_cows(guess, key): #count number of bulls and return as integer
+    bull_num=0
+    cow_num=len(set(guess).intersection(set(key)))
+    for item1,item2 in zip(guess,key):
         if item1==item2:
-            count+=1
+            bull_num+=1
         else:
             pass
-    return count
-
-def cows(guess, key):
-    count=0
-    for index in range(4):
-        if guess[index] in key:
-            count+=1
-        else:
-            pass
-    cow=count-bulls(guess, key)
-    return cow
+    cow_num-=bull_num
+    return (bull_num,cow_num)
 
 #find number of elements eliminated from S if guess is the guess made and key is the hidden key that it is compared to
 def find_score(guess,key, S):
-    l=sum(1 for x in S if bulls(guess,key)==bulls(guess,x) and cows(guess,key)==cows(guess,x))
+    l=sum(1 for x in S if bulls_and_cows(guess,key)==bulls_and_cows(guess,x))
     return len(S)-l
 
 #find the guess in T that would eliminate the most numbers from S in the worst case scenario
@@ -51,14 +43,16 @@ def minmax(T,S):
 optimal="0123"
 
 T = set(''.join(p) for p in itertools.permutations([str(n) for n in range(10)],r=4))
-print(len(T))
 S=T
 
 while len(S)>=2:
     print("The guess to be made is: %s" % (optimal))
     bull_num=int(input("Enter number of Bulls:"))
     cow_num=int(input("Enter number of Cows:"))
-    S=set(filter(lambda x:bulls(optimal,x)==bull_num and cows(optimal,x)==cow_num,S))
+    S=set(filter(lambda x:bulls_and_cows(optimal,x)==(bull_num,cow_num),S))
+    T.discard(optimal)
+    print(S)
     optimal_list=minmax(T,S)
+    print(optimal_list)
     optimal=choice(optimal_list)
 print(S)
