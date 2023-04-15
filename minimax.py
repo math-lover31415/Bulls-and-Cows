@@ -51,7 +51,6 @@ while len(S)>=2:
     cow_num=int(input("Enter number of Cows:"))
     S=set(filter(lambda x:bulls_and_cows(optimal,x)==(bull_num,cow_num),S))
     T.discard(optimal)
-    print(S)
     optimal_list=minmax(T,S)
     print(optimal_list)
     optimal=choice(optimal_list)
