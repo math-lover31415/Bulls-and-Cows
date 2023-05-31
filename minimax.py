@@ -1,16 +1,7 @@
 import itertools
 from random import choice
+from command_line import bulls_and_cows
 
-def bulls_and_cows(guess, key): #count number of bulls and return as integer
-    bull_num=0
-    cow_num=len(set(guess).intersection(set(key)))
-    for item1,item2 in zip(guess,key):
-        if item1==item2:
-            bull_num+=1
-        else:
-            pass
-    cow_num-=bull_num
-    return (bull_num,cow_num)
 
 #find number of elements eliminated from S if guess is the guess made and key is the hidden key that it is compared to
 def find_score(guess,key, S):

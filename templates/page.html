@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bulls and Cows</title>
+</head>
+<body>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <td>Number</td>
+                    <td>Bulls</td>
+                    <td>Cows</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dictionary in answers %}
+                <tr>
+                    <td>{{ dictionary["number"] }}</td>
+                    <td>{{ dictionary["bulls"] }}</td>
+                    <td>{{ dictionary["cows"] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <form method="POST" action="{{ url_for('add') }}">
+        <p><input type="text" name="number" placeholder="Enter digits" pattern="^(?!.*(.).*\1)\d{4}$" maxlength="4" minlength="4"></p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+    <form method="GET" action="{{ url_for('new_game') }}">
+        <p><input type="submit" value="New Game"></p>
+    </form>
+</body>
+</html>

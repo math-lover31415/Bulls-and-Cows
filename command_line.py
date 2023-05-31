@@ -75,5 +75,5 @@ def game_loop(): #A loop that will allow the players to play multiple times.
             continue
         else:
            break 
-
-game_loop()
+if __name__=="__main__":
+    game_loop()
