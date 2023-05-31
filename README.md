@@ -10,7 +10,8 @@ The rules of the game are as follows:
   <li>After each guess, the player is told how many Bulls and Cows their key contains. The player must use these clues to make further guesses.</li>
 </ul>
 The repository has:
-* A command_line.py file for playing the game throughthe command line
-* A gui.py file that was made using tkinter
-* And files for a flask application for a website where you can play the game.
+<ul>
+  <li> A command_line.py file for playing the game throughthe command line</li>
+  <li> A gui.py file that was made using tkinter</li>
+  <li> And files for a flask application for a website where you can play the game.</li>
 The minimax file tries to predict the optimal output using <a href="http://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf">Donald Knuth's algorithm</a>.
