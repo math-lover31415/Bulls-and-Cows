@@ -1,38 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bulls and Cows</title>
-</head>
-<body>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <td>Number</td>
-                    <td>Bulls</td>
-                    <td>Cows</td>
-                </tr>
-            </thead>
-            <tbody>
-                {% for dictionary in answers %}
-                <tr>
-                    <td>{{ dictionary["number"] }}</td>
-                    <td>{{ dictionary["bulls"] }}</td>
-                    <td>{{ dictionary["cows"] }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+{% extends "base.html" %}
+
+{% block content %}
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Number</th>
+            <th scope="col">Bulls</th>
+            <th scope="col">Cows</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for dictionary in answers %}
+        <tr>
+            <td>{{ dictionary["number"] }}</td>
+            <td>{{ dictionary["bulls"] }}</td>
+            <td>{{ dictionary["cows"] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% if win_status %}
+<p>Your answer was right. You won!</p>
+{% elif n==12 %}
+<p>You lost :(</p>
+{% else %}
+<div class="column">
     <form method="POST" action="{{ url_for('add') }}">
-        <p><input type="text" name="number" placeholder="Enter digits" pattern="^(?!.*(.).*\1)\d{4}$" maxlength="4" minlength="4"></p>
-        <p><input type="submit" value="Submit"></p>
+        <input class="col" type="text" name="number" placeholder="Enter digits" pattern="^(?!.*(.).*\1)\d{4}$" maxlength="4" minlength="4">
+        <input class="col" type="submit" class="btn" value="Submit">
     </form>
-    <form method="GET" action="{{ url_for('new_game') }}">
-        <p><input type="submit" value="New Game"></p>
+    {% endif %}
+    <form  method="GET" action="{{ url_for('new_game') }}">
+        <input  class="col" type="submit" class="btn" value="New Game">
     </form>
-</body>
-</html>
+</div>
+<a  class="col" href="{{ url_for('about') }}">About the game</a>
+{% endblock %}
