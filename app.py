@@ -1,18 +1,28 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 from command_line import bulls_and_cows, random_key
 
 app=Flask(__name__)
+app.secret_key = 'DA-9A-C9-9D-AB-65'
 
-n=0
-key=random_key()
-answers=[]
-num_list=[]
-win_status=False
+def reset():
+    global key, answers, num_list, n, win_status
+    n=0
+    win_status=False
+    num_list=[]
+    key=random_key()
+    answers=[]
+
+@app.before_request
+def before_request():
+    if 'visited' not in session:
+        reset()
 
 @app.route('/')
 @app.route('/game')
 def game():
+    if 'visited' not in session:
+        session['visited'] = True
     return render_template("page.html",answers=answers, n=n, win_status=win_status)
 
 @app.route('/add', methods=["POST"])
@@ -39,10 +49,5 @@ def about():
 
 @app.route("/new_game", methods=["GET"])
 def new_game():
-    global key, answers, num_list, n, win_status
-    n=0
-    win_status=False
-    num_list=[]
-    key=random_key()
-    answers=[]    
+    reset()
     return redirect(url_for('game'))
