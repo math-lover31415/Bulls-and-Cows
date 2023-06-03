@@ -13,6 +13,6 @@ The repository has:
 <ul>
   <li> A command_line.py file for playing the game throughthe command line</li>
   <li> A gui.py file that was made using tkinter</li>
-  <li> And files for a flask application for a website where you can play the game.</li>
+  <li> And files for a flask application for a website where you can play the game. It is currently hosted at http://tolerable31415.pythonanywhere.com/</li>
+  <li>The minimax file tries to predict the optimal output using <a href="http://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf">Donald Knuth's algorithm</a>.</li>
 </ul>
-The minimax file tries to predict the optimal output using <a href="http://www.cs.uni.edu/~wallingf/teaching/cs3530/resources/knuth-mastermind.pdf">Donald Knuth's algorithm</a>.
