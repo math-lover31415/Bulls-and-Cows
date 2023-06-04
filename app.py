@@ -22,7 +22,7 @@ def before_request():
 def game():
     if 'visited' not in session:
         session['visited'] = True
-    return render_template("page.html",answers=session.get('answers', []), n=session.get('n', 0), win_status=session.get('win_status', False), key=session['key'])
+    return render_template("page.html",answers=session.get('answers', []), n=session.get('n', 0), win_status=session.get('win_status', False), key=session.get('key', random_key()))
 
 @app.route('/add', methods=["POST"])
 def add():
