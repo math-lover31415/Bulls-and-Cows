@@ -23,7 +23,7 @@
 {% if win_status %}
 <p>Your answer was right. You won!</p>
 {% elif n==12 %}
-<p>You lost :(</p>
+<p>You lost :( The key was {{ key }}</p>
 {% else %}
 <div class="column">
     <form method="POST" action="{{ url_for('add') }}">
