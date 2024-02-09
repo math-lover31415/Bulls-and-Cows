@@ -74,6 +74,10 @@ tk.Label(window, text='Number').grid(row=2,column=0)
 tk.Label(window, text='Bulls').grid(row=2,column=1)
 tk.Label(window, text='Cows').grid(row=2,column=2)
 
+for i in range(12):
+    for j in range(3):
+        tk.Label(window, text="    ").grid(row=i+3,column=j)
+
 submit=tk.Button(window, text="Submit", command=f, bg='white', width=25)
 submit.grid(row=1, column=0)
 
